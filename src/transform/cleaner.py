@@ -23,7 +23,7 @@ def get_ml_prediction(title, summary, is_satire):
     payload = {"text": text_to_analyze}
     
     try:
-        response = requests.post(ML_API_URL, json=payload, timeout=5)
+        response = requests.post(ML_API_URL, json=payload, timeout=30)
         response.raise_for_status()
         
         # On retourne la réponse JSON sous forme de chaîne pour le stockage DuckDB
