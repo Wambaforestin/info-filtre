@@ -180,8 +180,8 @@ while True:
 
 ```python
 info-filtre/
-├── data/                  # Stockage local (ignoré par Git)
-│   └── pipeline.db        # Fichier DuckDB (généré automatiquement)
+├── data/                  # Stockage local
+│   └── pipeline.db        # Fichier DuckDB
 ├── src/
 │   ├── __init__.py
 │   ├── extract/           # Récupération des données brutes
@@ -201,7 +201,7 @@ info-filtre/
 │   └── sources.json       # Liste des URL (RSS Le Monde, Les Echos, etc.)
 ├── tests/                 # Dossier pour tes futurs tests unitaires
 │   └── __init__.py
-├── .env.example           # Template des variables d'environnement (API Google)
+├── .env.example           # Template des variables d'environnement
 ├── .gitignore             # Fichiers à ignorer
 ├── pyproject.toml         # Fichier de dépendances (généré par 'uv')
 └── README.md              # Documentation de ton projet
