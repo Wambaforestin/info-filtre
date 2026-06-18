@@ -1,0 +1,24 @@
+# Environnements virtuels
+.venv/
+venv/
+env/
+
+# Fichiers compilés Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Variables d'environnement secrètes
+.env
+
+# Fichiers de base de données DuckDB
+data/*.db
+data/*.duckdb
+data/*.wal
+
+# Fichiers OS
+.DS_Store
+Thumbs.db
+
+# Fichiers de logs
+*.log
