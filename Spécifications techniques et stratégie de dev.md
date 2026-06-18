@@ -15,6 +15,8 @@ Le processus de développement du projet `info-filtre` est incrémental ; pour l
 
 L'objectif est d'alimenter un système d'aide à la décision pour anticiper l'évolution des marchés financiers. Le besoin strict est de fournir un flux d'actualités structuré, en temps réel, capable d'isoler la vérité des fake news. Le système doit ingérer la donnée en continu, tout en étant capable de recalculer toute la fiabilité de l'historique toutes les 6 heures pour.
 
+## 2. Conception du pipeline de données
+
 ### Découverte (Ingestion)
 
 `Méthode` : Web Scraping ciblé sur les pages d'accueil.
@@ -52,3 +54,7 @@ L'objectif est d'alimenter un système d'aide à la décision pour anticiper l'�
 - `Si aucune correspondance n'est trouvée`  : le score ML initial est conservé.
   
 **Publication** : La table DuckDB consolidée est exposée et prête à être connectée à l'outil de visualisation ou d'analyse des analystes financiers.
+
+### image de l'architecture du pipeline
+
+[architecture](images/archi-info-filtre.png)
