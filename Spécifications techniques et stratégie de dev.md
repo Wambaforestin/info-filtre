@@ -1,4 +1,4 @@
-# Spécifications techniques et stratégie de dev (ETL) (rendu: 19/06/2026)
+# Spécifications techniques et stratégie de développement (ETL) (rendu: 19/06/2026)
 
 Le processus de développement du projet `info-filtre` est incrémental ; pour la première phase, il est conçu en mode "MVP selon les règles du 80-20" : je priorise ce qui apporte le plus de valeur rapidement, tout en posant des fondations solides.
 
@@ -55,6 +55,121 @@ L'objectif est d'alimenter un système d'aide à la décision pour anticiper l'�
   
 **Publication** : La table DuckDB consolidée est exposée et prête à être connectée à l'outil de visualisation ou d'analyse des analystes financiers.
 
-### image de l'architecture du pipeline
+### Image de l'architecture du pipeline
 
 ![architecture](images/archi-info-filtre.png)
+
+## 3. Sélection des outils et des technologies
+
+### Langage et Environnement
+
+`Langage: Python`
+
+**Pourquoi / Contexte**: C'est le standard incontesté pour l'ingénierie des données. Son écosystème permet de tout faire (scraping, requêtes API, nettoyage) de la manière la plus concise possible.
+
+Exemple : python main_pipeline.py
+
+`Gestionnaire de dépendances: uv`
+
+**Pourquoi / Contexte**: Écrit en Rust, il remplace pip et virtualenv. C'est le gestionnaire le plus rapide de l'écosystème actuel. Pour cet MVP , il réduit drastiquement les temps d'installation.
+
+Exemple (Terminal) :
+
+```bash
+uv init
+uv pip install requests beautifulsoup4 pandas duckdb schedule
+```
+
+### Extraction et Ingestion
+
+`Client HTTP: requests`
+
+**Pourquoi / Contexte:** Outil standard et léger pour interroger les flux RSS (Le Monde, Les Échos) de manière fiable sans la lourdeur d'un framework asynchrone pour ce petit volume de données.
+
+Exemple :
+
+```python
+import requests
+reponse = requests.get("https://www.lemonde.fr/rss/une.xml")
+contenu_xml = reponse.text
+```
+
+`Parsing / Scraping : BeautifulSoup4`
+
+**Pourquoi / Contexte:** Parfait pour parser les balises XML des flux RSS ou extraire des textes d'une page HTML brute. C'est robuste et ça évite de faire tourner un navigateur en arrière-plan (exit Selenium).
+
+Exemple :
+
+```python
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(contenu_xml, 'xml')
+titres = [item.title.text for item in soup.find_all('item')]
+```
+
+### Traitement et Enrichissement
+
+`Manipulation et Nettoyage: pandas`
+
+**Pourquoi / Contexte:** Bien que ce soit une bibliothèque puissante, elle est justifiée ici pour sa capacité à standardiser des formats de dates capricieux en une seule ligne et pour son intégration magique avec DuckDB. Gain de temps de développement massif pour le MVP.
+
+Exemple :
+
+```python
+import pandas as pd
+df = pd.DataFrame(donnees_scrapees)
+# Standardisation ISO des dates en une ligne
+df['event_date'] = pd.to_datetime(df['event_date']).dt.strftime('%Y-%m-%d %H:%M:%S')
+```
+
+`Communication ML: requests (En mode POST)`
+
+**Pourquoi / Contexte:** Le modèle ML tourne localement dans un conteneur Docker (API Flask). Un simple appel HTTP POST suffit pour lui envoyer le texte et récupérer la prédiction instantanément.
+
+Exemple :
+
+```python
+payload = {"text": "Titre et résumé de l'article"}
+reponse_ml = requests.post("http://localhost:5001/detect_json", json=payload)
+score = reponse_ml.json().get('score')
+```
+
+### Stockage
+
+`Base de données analytique: DuckDB`
+
+**Pourquoi / Contexte:** Idéal pour un MVP. Aucune configuration de serveur requise, tout tient dans un simple fichier local. De plus, il lit directement les DataFrames Pandas en mémoire pour faire des insertions massives (bulk inserts).
+
+Exemple :
+
+```python
+import duckdb
+# Connexion au fichier local (créé automatiquement)
+con = duckdb.connect('news_database.db')
+
+# Insertion magique et directe depuis le DataFrame Pandas
+con.execute("CREATE TABLE IF NOT EXISTS articles AS SELECT * FROM df")
+```
+
+### Orchestration
+
+`Planificateur Python : schedule`
+**Pourquoi / Contexte** : Pour éviter la complexité de création de graphes (DAGs) sous Dagster ou Airflow, et pour s'affranchir des configurations système comme cron. Cet outil permet de tout garder au sein du code Python avec une syntaxe extrêmement lisible.
+
+Exemple :
+
+```python
+import schedule
+import time
+from ingestion import run_realtime_ingestion
+from validation import run_validation_batch
+
+# Planification claire et lisible
+
+schedule.every(15).minutes.do(run_realtime_ingestion)
+schedule.every(6).hours.do(run_validation_batch)
+
+print("Lancement de l'orchestrateur du pipeline...")
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+```
