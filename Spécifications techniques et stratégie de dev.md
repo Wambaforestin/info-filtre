@@ -206,3 +206,19 @@ info-filtre/
 ├── pyproject.toml         # Fichier de dépendances (généré par 'uv')
 └── README.md              # Documentation de ton projet
 ```
+
+### Lancement du Modèle ML (Docker)
+
+Le pipeline s'appuie sur un modèle de Machine Learning local (DistilBERT) pour évaluer la fiabilité des articles en temps réel. Ce modèle est packagé sous forme d'API Flask dans un conteneur Docker.
+
+**Télécharger l'image ML :**
+
+```bash
+   docker pull josumsc/flask-fake-news
+```
+
+**Lancer le conteneur (en exposant le port 5001) :**
+
+```bash
+docker run -d -p 5001:5000 josumsc/flask-fake-news
+```
