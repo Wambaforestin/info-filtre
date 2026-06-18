@@ -57,4 +57,4 @@ L'objectif est d'alimenter un système d'aide à la décision pour anticiper l'�
 
 ### image de l'architecture du pipeline
 
-[architecture](images/archi-info-filtre.png)
+![architecture](images/archi-info-filtre.png)
