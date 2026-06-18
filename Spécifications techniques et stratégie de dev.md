@@ -6,10 +6,10 @@ Le processus de développement du projet `info-filtre` est incrémental ; pour l
 
 ### Sources de Données
 
-- Le Monde (Généraliste/International) : https://www.lemonde.fr/
-- Les Échos (Économique/Financier) : https://www.lesechos.fr/
-- Fact Check AFP (Vérité/Vérification) : https://factcheck.afp.com/
-- Le Gorafi (Bruit/Satire) : https://www.legorafi.fr/
+- Le Monde (Généraliste/International): https://www.lemonde.fr/
+- Le Figaro (Généraliste/International): https://www.lefigaro.fr/
+- Fact Check AFP (Vérité/Vérification): https://factcheck.afp.com/
+- Le Gorafi (Bruit/Satire): https://www.legorafi.fr/
 
 ### Les besoins des utilisateurs
 

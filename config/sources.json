@@ -1,0 +1,22 @@
+{
+  "news_sources": [
+    {
+      "name": "Le Monde",
+      "url": "https://www.lemonde.fr/rss/une.xml",
+      "type": "general",
+      "is_satire": false
+    },
+    {
+      "name": "Le Figaro Economie",
+      "url": "https://www.lefigaro.fr/rss/figaro_economie.xml",
+      "type": "finance",
+      "is_satire": false
+    },
+    {
+      "name": "Le Gorafi",
+      "url": "https://www.legorafi.fr/feed/",
+      "type": "satire",
+      "is_satire": true
+    }
+  ]
+}
