@@ -237,5 +237,5 @@ Pour le MVP, j'ai choisi de ne pas paralleliser les appels API et si une source 
 - La raison est que le volume de données est faible (moins de 100 articles par heure) et que la latence d'appel à l'API ML est négligeable (moins de 1 seconde).
 - Pour ne pas faire le "Retry" (avec des délais exponentiels pour réessayer 5 fois) car c'est une perte de temps. Si Le Monde est en panne à 10h00, on affiche une erreur, on l'ignore, et on prend Le Figaro et Le Gorafi. On réessaiera naturellement 15 minutes plus tard au prochain cycle. C'est robuste et ça ne bloque pas ton pipeline.
 
-- ***Si les sources sont fiables et tjrs disponibles (99.9999%), je pourrais utiliser du thread [based parallelism)(https://docs.python.org/3/library/threading.html)***
+- ***Si les sources sont fiables et tjrs disponibles (99.9999%), je pourrais utiliser du thread [based parallelism](https://docs.python.org/3/library/threading.html)***
 - ***Ou utiliser un orchestrateur comme Dagster/Airflow***
