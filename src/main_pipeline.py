@@ -10,9 +10,7 @@ from validation.fact_checker import run_validation_batch
 
 def job_realtime():
     """Tâche exécutée toutes les 15 minutes : Extraction -> Nettoyage -> Stockage"""
-    print(f"\n{'='*50}")
     print(f"[TEMPS RÉEL] Démarrage du cycle : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"{'='*50}")
     
     # 1. Extraction
     raw_data = scrape_rss_feeds()
@@ -27,9 +25,7 @@ def job_realtime():
 
 def job_batch():
     """Tâche exécutée toutes les 6 heures : Fact-Checking AFP"""
-    print(f"\n{'*'*50}")
     print(f"[BATCH 6H] Démarrage de la validation : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"{'*'*50}")
     
     # 1. Lancement du script de validation
     run_validation_batch()
@@ -56,4 +52,4 @@ if __name__ == "__main__":
             schedule.run_pending()
             time.sleep(1) # Pause d'une seconde pour ne pas surcharger le processeur
     except KeyboardInterrupt:
-        print("\nArrêt manuel de l'orchestrateur. À bientôt !")
+        print("\nArrêt manuel de l'orchestrateur.")

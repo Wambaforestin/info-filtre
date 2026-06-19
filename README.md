@@ -223,3 +223,9 @@ Le pipeline s'appuie sur un modèle de Machine Learning local (DistilBERT) pour 
 ```bash
     uv pip install requests beautifulsoup4 pandas duckdb schedule lxml python-dotenv
 ```
+
+### Lancement du pipeline
+
+```bash
+    python src/main_pipeline.py
+```
