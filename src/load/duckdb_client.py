@@ -2,7 +2,7 @@ import duckdb
 import pandas as pd
 import os
 
-# Chemin vers la base de données (le dossier 'data' doit exister)
+# Chemin vers la base de données (le dossier 'data' doit exister) 
 DB_PATH = "data/pipeline.db"
 
 def init_db():
