@@ -2,7 +2,8 @@ import json
 import requests
 import pandas as pd
 
-ML_API_URL = "http://localhost:5001/detect_json"
+# URL de l'API ML locale pour la détection de satire
+ML_API_URL = "http://localhost:5001/detect_json" 
 
 def truncate_text(text, max_words=100):
     """Tronque un texte à un nombre maximum de mots."""
@@ -14,6 +15,7 @@ def truncate_text(text, max_words=100):
     return text
 
 def get_ml_prediction(title, summary, is_satire):
+    
     """Envoie le texte au modèle ML ou applique une règle métier stricte."""
     # Règle métier : On économise du temps de calcul pour le Gorafi
     if is_satire:
