@@ -48,7 +48,7 @@ L'objectif est d'alimenter un système d'aide à la décision pour anticiper l'�
 
 ### Image de l'architecture du pipeline
 
-![architecture](images/archi-info-filtre.png)
+![architecture](images/archi-info-filtre-v2.png)
 
 ## 3. Sélection des outils et des technologies
 
