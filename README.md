@@ -165,6 +165,18 @@ while True:
     time.sleep(1)
 ```
 
+### Stratégie de tests
+
+`Tests d'intégration ad-hoc` : Pour ce MVP, je me concentre sur des tests d'intégration manuels pour valider chaque module de manière isolée et immédiate avant de passer à l'étape suivante.
+
+Exemple:
+
+```python
+# en bas de chaque module (ex: rss_scraper.py)
+if __name__ == "__main__":
+    # Test ici...
+```
+
 ## 4. Configuration du pipeline
 
 ### structure du projet
@@ -217,10 +229,12 @@ docker run -d -p 5001:5000 josumsc/flask-fake-news
 ### Installation des dépendances Python
 
 ```bash
-uv init
+# si tu réutilises un environnement virtuel, active-le d'abord
+uv sync 
 ```
 
 ```bash
+# si tu crée un nouvel environnement virtuel, utilise :
 uv pip install requests beautifulsoup4 pandas duckdb schedule lxml python-dotenv
 ```
 
@@ -258,3 +272,12 @@ SELECT
 FROM articles
 WHERE is_fact_checked = TRUE;
 ```
+
+## 7. Les mises à jour à venir
+
+- **Ajout de nouvelles sources**: Intégration de flux RSS supplémentaires (ex: Boursorama, Reuters) pour enrichir la diversité des actualités financières.
+- **Implémenter un controle de qualité des données**: Ajout de règles de validation pour détecter les anomalies (ex: titres vides, dates incohérentes) avant l'insertion dans DuckD, vérifier que le COUNT des articles extraits corrrespond aux COUNT des articles dans la base de données, etc.
+- **Fiabiliser la validation des articles pour le batch de 6 heures**: andonner le Web Scraping incertain et brancher officiellement la Google Fact Check API. Cela garantira un taux de réponse de 100% lors du batch de vérification, sans blocage.
+- **Optimisation du pipeline**: Si le volume de données augmente, envisager une parallélisation des appels API et une orchestration plus robuste (ex: Dagster) pour gérer les dépendances et les échecs de manière plus fine.
+- **Intégration Continue (CI) et Tests Unitaires**: Mettre en place de vrais Tests Unitaires (avec la librairie pytest) pour tester mathématiquement chaque fonction (ex: vérifier que la fonction de troncature coupe bien à 50 mots exacts) et automatiser ces tests grâce à GitHub Actions : à chaque fois que je vais faire une modification sur le code, GitHub exécutera les tests tout seul pour s'assurer que rien n'a été cassé. Cependant en cas d'échec, je serai notifié immédiatement pour corriger le problème.
+- **Exploitation des données**: Connecter la base DuckDB à un outil de visualisation (ex: Tableau, Power BI) ou créer avec streamlit des dashboards afin de réaliser des analyses approfondies sur les tendances du marché et la fiabilité des sources d'information.
