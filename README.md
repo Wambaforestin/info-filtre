@@ -241,7 +241,16 @@ uv pip install requests beautifulsoup4 pandas duckdb schedule lxml python-dotenv
 ### Lancement du pipeline
 
 ```bash
-python src/main_pipeline.py
+uv run src/main_pipeline.py
+```
+
+### Pour tester chaque module individuellement
+
+```bash
+uv run src/extract/rss_scraper.py # test du scraping
+uv run src/transform/cleaner.py # test du nettoyage
+uv run src/load/duckdb_client.py # test du chargement
+uv run src/validation/fact_checker.py # test de la vérification
 ```
 
 ## 5. Statégie des appels api
