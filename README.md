@@ -264,7 +264,7 @@ SELECT * FROM articles ORDER BY publication_date DESC LIMIT 10;
 ```
 
 ```sql
--- Exemple de requête pour vérifier l'analyse de fact-checking avec l'AFP (les resultats sont mis à jour toutes les 6 heures)
+-- Exemple de requête pour vérifier l'analyse de fact-checking avec l'AFP
 SELECT 
     source_name,
     title, 
@@ -277,7 +277,7 @@ WHERE is_fact_checked = TRUE;
 
 - **Ajout de nouvelles sources**: Intégration de flux RSS supplémentaires (ex: Boursorama, Reuters) pour enrichir la diversité des actualités financières.
 - **Implémenter un controle de qualité des données**: Ajout de règles de validation pour détecter les anomalies (ex: titres vides, dates incohérentes) avant l'insertion dans DuckD, vérifier que le COUNT des articles extraits corrrespond aux COUNT des articles dans la base de données, etc.
-- **Fiabiliser la validation des articles pour le batch de 6 heures**: andonner le Web Scraping incertain et brancher officiellement la Google Fact Check API. Cela garantira un taux de réponse de 100% lors du batch de vérification, sans blocage.
+- **Fiabiliser la validation des articles pour le batch de 6 heures**: andonner le Web Scraping incertain et brancher officiellement la `Google Fact Check API`Cela garantira un taux de réponse de 100% lors du batch de vérification, sans blocage.
 - **Optimisation du pipeline**: Si le volume de données augmente, envisager une parallélisation des appels API et une orchestration plus robuste (ex: Dagster) pour gérer les dépendances et les échecs de manière plus fine.
 - **Intégration Continue (CI) et Tests Unitaires**: Mettre en place de vrais Tests Unitaires (avec la librairie pytest) pour tester mathématiquement chaque fonction (ex: vérifier que la fonction de troncature coupe bien à 50 mots exacts) et automatiser ces tests grâce à GitHub Actions : à chaque fois que je vais faire une modification sur le code, GitHub exécutera les tests tout seul pour s'assurer que rien n'a été cassé. Cependant en cas d'échec, je serai notifié immédiatement pour corriger le problème.
 - **Exploitation des données**: Connecter la base DuckDB à un outil de visualisation (ex: Tableau, Power BI) ou créer avec streamlit des dashboards afin de réaliser des analyses approfondies sur les tendances du marché et la fiabilité des sources d'information.
