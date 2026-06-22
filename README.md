@@ -241,16 +241,16 @@ uv pip install requests beautifulsoup4 pandas duckdb schedule lxml python-dotenv
 ### Lancement du pipeline
 
 ```bash
-uv run src/main_pipeline.py
+uv run python src/main_pipeline.py
 ```
 
 ### Pour tester chaque module individuellement
 
 ```bash
-uv run src/extract/rss_scraper.py # test du scraping
-uv run src/transform/cleaner.py # test du nettoyage
-uv run src/load/duckdb_client.py # test du chargement
-uv run src/validation/fact_checker.py # test de la vérification
+uv run python src/extract/rss_scraper.py # test du scraping
+uv run python src/transform/cleaner.py # test du nettoyage
+uv run python src/load/duckdb_client.py # test du chargement
+uv run python src/validation/fact_checker.py # test de la vérification
 ```
 
 ## 5. Statégie des appels api
@@ -266,6 +266,8 @@ Pour le MVP, j'ai choisi de ne pas paralleliser les appels API et si une source 
 ## 6. Vérification des données sur DuckDB avec l'outil DBeaver
 
 Pour vérifier que les données sont bien ingérées et enrichies, j'utilise [DBeaver](https://dbeaver.io/download/) pour me connecter à la base DuckDB. Cela me permet de visualiser les tables, d'exécuter des requêtes SQL et de m'assurer que les transformations et enrichissements se déroulent comme prévu.
+
+![Capture d'écran de DBeaver connecté à DuckDB](images/dbeaver.png
 
 ```sql
 -- Exemple de requête pour récupérer les 10 derniers articles publiés
