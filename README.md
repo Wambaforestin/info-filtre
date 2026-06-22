@@ -239,3 +239,22 @@ Pour le MVP, j'ai choisi de ne pas paralleliser les appels API et si une source 
 
 - ***Si les sources sont fiables et tjrs disponibles (99.9999%), je pourrais utiliser du [thread based parallelism](https://docs.python.org/3/library/threading.html)***
 - ***Ou utiliser un orchestrateur comme Dagster/Airflow***
+
+## 6. Vérification des données sur DuckDB avec l'outil DBeaver
+
+Pour vérifier que les données sont bien ingérées et enrichies, j'utilise [DBeaver](https://dbeaver.io/download/) pour me connecter à la base DuckDB. Cela me permet de visualiser les tables, d'exécuter des requêtes SQL et de m'assurer que les transformations et enrichissements se déroulent comme prévu.
+
+```sql
+-- Exemple de requête pour récupérer les 10 derniers articles publiés
+SELECT * FROM articles ORDER BY publication_date DESC LIMIT 10;
+```
+
+```sql
+-- Exemple de requête pour vérifier l'analyse de fact-checking avec l'AFP (les resultats sont mis à jour toutes les 6 heures)
+SELECT 
+    source_name,
+    title, 
+    final_status
+FROM articles
+WHERE is_fact_checked = TRUE;
+```
