@@ -267,7 +267,7 @@ Pour le MVP, j'ai choisi de ne pas paralleliser les appels API et si une source 
 
 Pour vérifier que les données sont bien ingérées et enrichies, j'utilise [DBeaver](https://dbeaver.io/download/) pour me connecter à la base DuckDB. Cela me permet de visualiser les tables, d'exécuter des requêtes SQL et de m'assurer que les transformations et enrichissements se déroulent comme prévu.
 
-![Capture d'écran de DBeaver connecté à DuckDB](images/dbeaver.png
+![Capture d'écran de DBeaver connecté à DuckDB](images/dbeaver.png)
 
 ```sql
 -- Exemple de requête pour récupérer les 10 derniers articles publiés
