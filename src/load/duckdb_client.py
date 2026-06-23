@@ -16,16 +16,16 @@ def init_db():
     # pour éviter d'insérer les mêmes articles toutes les 15 minutes.
     con.execute("""
         CREATE TABLE IF NOT EXISTS articles (
-            source_name VARCHAR,
-            title VARCHAR,
-            summary VARCHAR,
-            event_date TIMESTAMP,
-            publication_date TIMESTAMP,
-            is_satire BOOLEAN,
-            ml_prediction VARCHAR,
-            is_fact_checked BOOLEAN DEFAULT FALSE,
-            final_status VARCHAR DEFAULT NULL,
-            UNIQUE(source_name, title)
+           source_name VARCHAR NOT NULL,     -- Bloque si la source est vide
+           title VARCHAR NOT NULL,           -- Bloque si le titre est vide
+           summary VARCHAR,                  -- Autorise un résumé vide
+           event_date TIMESTAMP,
+           publication_date TIMESTAMP,
+           is_satire BOOLEAN,
+           ml_prediction VARCHAR,
+           is_fact_checked BOOLEAN DEFAULT FALSE,
+           final_status VARCHAR DEFAULT NULL,
+           UNIQUE(source_name, title)        -- Gère la déduplication (Idempotence)
         )
     """)
     con.close()
