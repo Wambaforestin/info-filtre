@@ -44,9 +44,9 @@ La vérification de l'information doit être au maximum automatisée.
 - `Formatage des dates (Standardisation)` : Conversion de tous les formats temporels disparates (ex: "il y a 2h", "18/06/2026") vers le format strict demandé : YYYY-MM-DD HH:MM:SS (ex : 2026-02-11 19:00:00).
 - `Troncature` : je vais potentiellement tronquer le champ summary à une limite stricte de mots (ex: 30 à 50 mots maximum) si la source fournit un texte trop long.
 
-### Enrichissement (Temps Réel)
+### Enrichissement
 
-- `Détection ML en temps réel` : Concaténation du titre et du résumé, et envoi via requête HTTP (POST) au [module local de détection](https://github.com/josumsc/fake-news-detector).
+- `Détection ML` : Concaténation du titre et du résumé, et envoi via requête HTTP (POST) au [module local de détection](https://github.com/josumsc/fake-news-detector).
 - `Ajout du score` : Récupération de la probabilité (Fake/Real) et ajout dans la colonne ml_prediction
 - `Stockage initial` : Écriture immédiate de la donnée enrichie dans la base DuckDB pour qu'elle soit consultable sans délai par les utilisateurs.
 
