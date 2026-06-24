@@ -67,7 +67,7 @@ def run_validation_batch():
 
         print(f"[INFO] {len(unverified_articles)} articles en attente de vérification sur le site AFP.")
 
-        # Vérification article par article
+        # Vérification article par article, row est un tuple (source_name, title)
         for row in unverified_articles:
             source_name, title = row
             

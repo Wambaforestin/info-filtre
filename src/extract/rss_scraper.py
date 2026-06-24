@@ -37,7 +37,7 @@ def scrape_rss_feeds():
                     "summary": summary,
                     "event_date": pub_date,       # Date brute du RSS
                     "publication_date": pub_date, # On garde la même pour le moment
-                    "is_satire": source['is_satire']
+                    "is_satire": source['is_satire'] # ce champ est utilisé pour voir si le modèle vérifie ou pas
                 })
             
             print(f"{len(items)} articles récupérés depuis {source['name']}.")
